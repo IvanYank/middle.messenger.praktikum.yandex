@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/normalize.scss">
+    <link rel="stylesheet" href="/src/styles/components.scss">
+    <link rel="stylesheet" href="style.scss">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <main class="profile">
+      <a href="/src/pages/chats/index.html" class="profile__back">
+        <div class="profile__back-arrow"></div>
+      </a>
+      <div class="profile__content">
+        <div class="profile__wrapper">
+          <div class="profile__static-data">
+            <button type="button" class="profile__avatar">
+              <img src="/static/images/Union.png" alt="avatar" class="profile__image">
+              <p class="profile__avatar-text">Поменять аватар</p>
+            </button>
+            <h2 class="profile__title">Иван</h2>
+            <div class="profile__info">
+              {{> data label="Почта" value="pochta@yandex.ru" }}
+              {{> data label="Логин" value="ivanivanov" }}
+              {{> data label="Имя" value="Иван" }}
+              {{> data label="Фамилия" value="Иванов" }}
+              {{> data label="Имя в чате" value="Иван" }}
+              {{> data label="Телефон" value="+7 (909) 967 30 30" }}
+            </div>
+            <div class="profile__buttons">
+              <button class="profile-button profile__change-data-button">Изменить данные</button>
+              <button class="profile-button profile__change-password-button">Изменить пароль</button>
+              <a href="/" class="profile-button profile__exit">Выйти</a>
+            </div>
+          </div>
+          <form action="#" class="profile__change-data">
+            {{> data-input label="Почта" placeholder="pochta@yandex.ru" id="email" name="email" type="email" }}
+            {{> data-input label="Логин" placeholder="ivanivanov" id="login" name="login" type="text" }}
+            {{> data-input label="Имя" placeholder="Иван" id="first_name" name="first_name" type="text" }}
+            {{> data-input label="Фамилия" placeholder="Иванов" id="second_name" name="second_name" type="text" }}
+            {{> data-input label="Имя в чате" placeholder="Иван" id="display_name" name="display_name" type="text" }}
+            {{> data-input label="Телефон" placeholder="+7 (909) 967 30 30" id="phone" name="phone" type="text"}}
+            <button type="button" class="profile__change-data-submit">Сохранить</button>
+          </form>
+          <form action="#" class="profile__change-password">
+            {{> data-input label="Старый пароль" placeholder="**********" id="oldPassword" name="oldPassword" type="password" }}
+            {{> data-input label="Новый пароль" placeholder="**********" id="newPassword" name="newPassword" type="password" }}
+            {{> data-input label="Повторите новый пароль" placeholder="**********" id="newPasswordRepeat" name="newPasswordRepeat" type="password" }}
+            <button type="button" class="profile__change-password-submit">Сохранить</button>
+          </form>
+        </div>
+        <div class="profile__change-avatar-wrapper">
+          <form action="#" class="change-avatar profile__change-avatar">
+            <p class="change-avatar__title">Загрузите файл</p>
+            <label for="avatar" class="change-avatar__label">Выбрать файл на компьютере</label>
+            <input id="avatar" type="file" class="change-avatar__input" name="avatar">
+            <button type="button" class="change-avatar__submit">Поменять</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
+

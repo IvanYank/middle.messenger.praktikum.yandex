@@ -1,0 +1,216 @@
+.profile {
+  height: 100vh;
+  display: flex;
+  &__back {
+    width: 5%;
+    background-color: #FBFBFB;
+    border-right: 1px solid #EAEAEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+  }
+  &__back-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #3369F3;
+    background-image: url(/static/icons/arrow-left-full.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &__content {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__wrapper {
+    width: 510px;
+  }
+  &__static-data{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__avatar {
+    min-height: 130px;
+    min-width: 130px;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-color: #EFEFEF;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: 0.4s background-color;
+    cursor: pointer;
+    &:hover{
+      background-color: #787878;
+    }
+    &:hover .profile__avatar-text{
+      opacity: 1;
+    }
+  }
+  &__image {
+  }
+  &__avatar-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 14px;
+    color: #FFFFFF;
+    opacity: 0;
+    transition: 0.4s opacity;
+  }
+  &__title {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    color: #1E1E1E;
+    margin: 0 0 40px 0;
+  }
+  &__info {
+    margin: 0 0 50px 0;
+    width: 100%;
+  }
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &__change-data-button {}
+  &__change-password-button {}
+  &__change-data{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+  }
+  &__change-password{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+  }
+  &__change-data-submit{
+    align-self: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: #3369F3;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin: 30px 0 0 0;
+    cursor: pointer;
+  }
+  &__change-password-submit{
+    align-self: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: #3369F3;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin: 30px 0 0 0;
+    cursor: pointer;
+  }
+  &__change-avatar-wrapper{
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+  }
+  &__change-avatar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+}
+
+a.profile__exit {
+  color: #FF0000;
+}
+
+.profile-button{
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  color: #3369F3;
+  padding: 0 0 15px 0;
+  margin: 0 0 15px 0;
+  border-bottom: 1px solid #EAEAEA;
+  text-align: left;
+  cursor: pointer;
+  &:last-child{
+    border: none;
+    margin: 0;
+  }
+}
+ 
+.change-avatar {
+  width: 340px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 30px;
+  &__title {
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #1E1E1E;
+    margin: 0 0 50px 0;
+  }
+  &__label{
+    margin: 0 0 50px 0;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #3369F3;
+    max-width: 120px;
+    text-decoration: underline;
+    text-align: center;
+  }
+  &__input {
+    width: 0;
+    font-size: 0;
+  }
+  &__submit {
+    align-self: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: #3369F3;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 0;
+    cursor: pointer;
+  }
+}
+
