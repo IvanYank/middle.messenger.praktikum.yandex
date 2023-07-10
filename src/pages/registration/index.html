@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/normalize.scss">
+    <link rel="stylesheet" href="/src/styles/components.scss">
+    <link rel="stylesheet" href="style.scss">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <form action="" method="#" class="form">
+      <div class="form__wrapper">
+        <div class="form__upper">
+          <h1 class="form__title">Регистрация</h1>
+          <div class="form__inputs">
+            {{> input label="Почта" type="email" id="email" name="email" }}
+            {{> input label="Логин" type="text" id="login" name="login" }}
+            {{> input label="Имя" type="text" id="first_name" name="first_name" }}
+            {{> input label="Фамилия" type="text" id="second_name" name="second_name" }}
+            {{> input label="Телефон" type="text" id="phone" name="phone" }}
+            {{> input label="Пароль" type="password" id="password" name="password" }}
+            {{> input label="Пароль (ещё раз)" type="password" id="password_sec" name="password_sec" }}
+          </div>
+          <p class="form__issue">Пароли не совпадают</p>
+        </div>
+        <div class="form__lower">
+          {{> button_link text="Зарегистрироваться" link="/src/pages/chats/index.html" variation="1"}}
+          {{> button_link text="Войти" link="/" variation="2"}}
+        </div>
+      </div>
+    </form>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

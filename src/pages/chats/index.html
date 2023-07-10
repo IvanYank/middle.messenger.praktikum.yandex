@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/normalize.scss">
+    <link rel="stylesheet" href="/src/styles/components.scss">
+    <link rel="stylesheet" href="style.scss">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <main class="chats">
+      <div class="chats__left-block">
+        <div class="chats__search">
+          <a href="/src/pages/profile/index.html" class="chats__profile">Профиль</a>
+          <form method="#" action="#" class="search chats__search-line">
+            <input id="search" type="text" class="search__input" name="message">
+            <label for="search" class="search__label">Поиск</label>
+          </form>
+        </div>
+        <div class="chats__list">
+          {{> dialog image="/static/icons/person.svg" name="Андрей" last-message="Изображение" date="10:49" count="2" }}
+          {{> dialog image="/static/icons/person.svg" name="Пётр" last-message="Когда сможешь вернуть ?" date="Ср" count="0" }}
+          {{> dialog image="/static/icons/person.svg" name="Афанасий" last-message="Видео" date="Пт" count="1" }}
+        </div>
+      </div>
+      <div class="chats__right-block">
+        <div class="chats__chat-info">
+          <div class="chats__left-info">
+            <div class="chats__avatar">
+              <img src="/static/icons/person.svg" alt="avatar" class="chats__img">
+            </div>
+            <div class="chats__name">Пётр</div>  
+          </div>
+          <button class="chats__settings" type="button"></button>
+        </div>
+        <div class="chats__messages-display">
+          {{> message position="left" text="Привет, можешь одолжить 100 рублей ?" time="10:12"}}
+          {{> message position="right" text="Да, хорошо, скинул" status="readed" time="11:50"}}
+          {{> message position="right" text="Когда сможешь вернуть ?" status="read" time="11:56"}}
+        </div>
+        <div class="chats__send-panel">
+          <button class="chats__send-file"></button>
+          <div class="chats__send-message">Сообщение</div>
+          <button class="chats__send-button"></button>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
