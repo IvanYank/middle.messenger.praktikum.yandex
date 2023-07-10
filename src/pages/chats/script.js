@@ -5,3 +5,4 @@ dialogCounts.forEach((item)=>{
     item.style = "visibility:hidden"
   }
 })
+

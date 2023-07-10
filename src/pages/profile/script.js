@@ -40,3 +40,4 @@ changePasswordSubmit.addEventListener('click', ()=>{
   changePasswordForm.style="display:none"
   profileStatic.style="display:flex"
 })
+
