@@ -20,3 +20,4 @@ export default defineConfig({
 	  partialDirectory: resolve(__dirname, 'src/components'),
   })]
 })
+
