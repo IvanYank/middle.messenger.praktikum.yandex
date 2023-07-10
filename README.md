@@ -14,4 +14,4 @@ npm run dev - Запуск проекта в режиме разработки
 404 - http://localhost:3000/src/pages/404/index.html <br/>
 500 - http://localhost:3000/src/pages/500/index.html
 
-Netlify - 
+Netlify - https://radiant-choux-52af17.netlify.app
