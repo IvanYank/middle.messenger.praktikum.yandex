@@ -1,8 +1,8 @@
 import render from "./render";
 
-export default function multiRender(data): void{
+export default function multiRender(data: any): void{
   Object.keys(data).forEach((path)=>{
-    data[path].forEach((item)=>{
+    data[path].forEach((item: any)=>{
       render(path, item);
     })
   })

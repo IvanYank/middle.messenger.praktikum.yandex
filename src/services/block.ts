@@ -8,7 +8,7 @@ class Block {
     FLOW_RENDER: "flow:render"
   };
 
-  private _element: HTMLElement;
+  private _element!: HTMLElement;
   private _meta: {
     tagName: string;
     wrapper: boolean;
@@ -57,7 +57,7 @@ class Block {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps, newProps): void {
+  private _componentDidUpdate(oldProps: object, newProps: object): void {
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if(response){
@@ -67,14 +67,14 @@ class Block {
     }
   }
 
-  componentDidUpdate(oldProps, newProps): boolean {
+  componentDidUpdate(oldProps: object, newProps: object): boolean {
     if(oldProps === newProps){
       return false;
     }
     return true;
   }
 
-  setProps(nextProps): void {
+  setProps(nextProps: object): void {
     if(nextProps){
       this._componentDidUpdate(this.props, nextProps);
     }
@@ -102,9 +102,9 @@ class Block {
     return this._element;
   }
 
-  private _makePropsProxy(props) {
+  private _makePropsProxy(props: any) {
     const propsList = new Proxy(props, {
-      get(target, prop: string){
+      get(target: any, prop: string){
         if(target[prop]){
           const value = target[prop];
           return typeof value === "function" ? value.bind(target) : value;

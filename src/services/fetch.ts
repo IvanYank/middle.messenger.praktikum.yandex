@@ -7,14 +7,14 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
-  data?,
+  data?: any,
   headers?: Record<string, string>,
   timeout?: number;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data) {
+function queryStringify(data: any) {
   if (typeof data !== 'object') {
     throw new Error('Data must be Object');
   }
