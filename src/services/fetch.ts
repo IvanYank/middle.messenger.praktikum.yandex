@@ -16,7 +16,7 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data: Record<string, any>) {
+function queryStringify(data: Record<string, string>) {
   if (typeof data !== 'object') {
     throw new Error('Data must be Object');
   }
