@@ -60,24 +60,24 @@
       background-color: #787878;
     }
 
-    &:hover .profile__avatar-text{
+    &-text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 14px;
+      color: #FFF;
+      opacity: 0;
+      transition: 0.4s opacity;
+    }
+
+    &:hover &-text{
       opacity: 1;
     }
-  }
-
-  &__avatar-text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-family: Inter, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 14px;
-    color: #FFF;
-    opacity: 0;
-    transition: 0.4s opacity;
   }
 
   &__title {
@@ -170,10 +170,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
 
-a.profile__exit{
-  color: #F00;
+  &__exit{
+    color: #F00 !important;
+  }
 }
 
 .profile-button{
