@@ -1,0 +1,28 @@
+.data {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 15px;
+  margin: 0 0 15px;
+  border-bottom: 1px solid #EAEAEA;
+
+  &__label {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    color: #1E1E1E;
+  }
+
+  &__value {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    color: #999;
+  }
+
+  &:last-child{
+    margin: 0;
+    border: none;
+  }
+}
