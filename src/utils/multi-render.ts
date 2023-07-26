@@ -5,7 +5,7 @@ type data = Record<string, Block[]>
 
 export default function multiRender(data: data): void{
   Object.keys(data).forEach((path)=>{
-    data[path].forEach((item: any)=>{
+    data[path].forEach((item: Block)=>{
       render(path, item);
     })
   })

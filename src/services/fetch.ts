@@ -7,14 +7,16 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
+  /* eslint-disable */
   data?: any,
+  /* eslint-enable */
   headers?: Record<string, string>,
   timeout?: number;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data: any) {
+function queryStringify(data: Record<string, any>) {
   if (typeof data !== 'object') {
     throw new Error('Data must be Object');
   }

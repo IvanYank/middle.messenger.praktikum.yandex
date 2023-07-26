@@ -104,7 +104,9 @@ class Block {
 
   private _makePropsProxy(props: object) {
     const propsList = new Proxy(props, {
-      get(target: any, prop: string){
+      /* eslint-disable */
+      get(target: Record<string, any>, prop: string){
+      /* eslint-enable */
         if(target[prop]){
           const value = target[prop];
           return typeof value === "function" ? value.bind(target) : value;
