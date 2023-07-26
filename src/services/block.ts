@@ -102,7 +102,7 @@ class Block {
     return this._element;
   }
 
-  private _makePropsProxy(props: any) {
+  private _makePropsProxy(props: object) {
     const propsList = new Proxy(props, {
       get(target: any, prop: string){
         if(target[prop]){

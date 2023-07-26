@@ -1,5 +1,5 @@
 class EventBus {
-  listeners: any;
+  listeners: Record<string, []>;
 
   constructor() {
     this.listeners = {};
@@ -10,7 +10,7 @@ class EventBus {
       this.listeners[event] = [];
     }
 
-    this.listeners[event].push(callback);
+    (this.listeners[event] as object[]).push(callback);
   }
 
   off(event: string, callback: object) {
@@ -18,7 +18,7 @@ class EventBus {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event] = this.listeners[event].filter(
+    (this.listeners[event] as object[]) = this.listeners[event].filter(
       (listener: object) => listener !== callback
     );
   }
@@ -28,7 +28,7 @@ class EventBus {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach(function(listener: any) {
+    this.listeners[event].forEach(function(listener: (...args: undefined[])=> void) {
       listener(...args);
     });
   }

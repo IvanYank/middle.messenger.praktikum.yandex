@@ -3,7 +3,7 @@ import Block from '../../services/block'
 import button from './button_link.tmpl'
 
 export default class ButtonLink extends Block {
-  constructor(props: {} | undefined){
+  constructor(props: object){
     super('a', props, false)
   }
 

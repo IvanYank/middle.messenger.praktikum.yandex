@@ -3,7 +3,7 @@ import Block from '../../services/block'
 import input from './data.tmpl'
 
 export default class ButtonLink extends Block {
-  constructor(props: {} | undefined){
+  constructor(props: object){
     super('div', props, true)
   }
 
