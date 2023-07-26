@@ -1,0 +1,64 @@
+.message {
+  padding: 12px 10px 20px;
+  border-radius: 8px;
+  background-color: #F8F8F8;
+  color: #1E1E1E;
+  margin: 0 0 10px;
+  position: relative;
+  max-width: 40%;
+
+  &_right {
+    align-self: flex-end;
+    background-color: #E4EDFD;
+    border-bottom-right-radius: 0;
+  }
+
+  &__text {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #1E1E1E;
+  }
+
+  &__time {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 9px;    
+    color: #999;
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+
+    &_right{
+      color: #3369F3;
+
+      &::before{
+        content: url("/static/icons/check.svg");
+        width: 10px;
+        height: 4px;
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: -12px;
+      }
+    }
+
+    &_readed{
+      &::before{
+        content: url("/static/icons/check_readed.svg");
+        width: 10px;
+        height: 4px;
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: -14px;
+      }
+    }
+  }
+
+  &:last-child{
+    margin: 0;
+  }
+}
