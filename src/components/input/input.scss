@@ -1,3 +1,5 @@
+@use '../../styles/variables.scss' as variables;
+
 .form {
   &__item {
     display: flex;
@@ -15,7 +17,7 @@
     font-size: 9px;
     font-weight: 500;
     line-height: 9px;
-    color: #999;
+    color: variables.$text-color;
     margin: 0 0 5px;
   }
 
@@ -24,12 +26,12 @@
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
-    border-bottom: 1px solid #3369F3;
+    border-bottom: 1px solid variables.$blue-color;
     padding: 4px 0;
     width: 100%;
 
     &_error{
-      border-bottom: 1px solid #f00;
+      border-bottom: 1px solid variables.$error-color;
     }
   }
 
@@ -38,7 +40,7 @@
     font-weight: 500;
     line-height: 9px;
     font-size: 10px;
-    color: #f00;
+    color: variables.$error-color;
     margin: 5px 0 0;
     visibility: hidden;
 

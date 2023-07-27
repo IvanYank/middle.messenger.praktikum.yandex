@@ -14,9 +14,11 @@ class Block {
     wrapper: boolean;
   };
   private _eventBus: EventBus;
-  props;
+  /* eslint-disable */
+  props: Record<string, any>;
+  /* eslint-enable */
 
-  constructor(tagName: string = "div", props = {}, wrapper: boolean = true) {
+  constructor(tagName: string = "div", props: object, wrapper: boolean = true) {
     this._eventBus = new EventBus();
     this._meta = {
       tagName: tagName,
@@ -114,7 +116,9 @@ class Block {
           return '';
         }
       },
-      set(target, prop: string, value): boolean{
+      /* eslint-disable */
+      set(target: Record<string, any>, prop: string, value): boolean{
+      /* eslint-enable */
         target[prop] = value;
         return true
       }

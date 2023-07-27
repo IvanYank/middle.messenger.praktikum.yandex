@@ -1,3 +1,5 @@
+@use '../../styles/variables.scss' as variables;
+
 .form{
     &__button {
     font-family: Inter, Arial, sans-serif;
@@ -10,12 +12,12 @@
     cursor: pointer;
 
     &_1{
-      color: #fff;
-      background-color: #3369F3;
+      color: variables.$white-color;
+      background-color: variables.$blue-color;
     }
 
     &_2{
-      color: #3369F3;
+      color: variables.$blue-color;
       font-size: 12px;
       background-color: transparent;
     }

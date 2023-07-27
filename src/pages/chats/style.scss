@@ -1,17 +1,19 @@
+@use '../../styles/variables' as variables;
+
 .chats {
   height: 100vh;
   display: flex;
 
   &__left-block {
-    background-color: #FBFBFB;
+    background-color: variables.$back-color;
     width: 24%;
     padding: 0 10px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid variables.$border-color;
   }
 
   &__search {
     padding: 20px 0 0;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid variables.$border-color;
   }
 
   &__profile {
@@ -19,7 +21,7 @@
     font-size: 12px; 
     font-weight: 500;
     line-height: 12px;
-    color: #999;
+    color: variables.$text-color;
     margin: 0 0 20px;
     display: flex;
     align-items: center;
@@ -45,7 +47,7 @@
   &__chat-info {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid variables.$border-color;
     align-items: center;
     padding: 10px 0;
   }
@@ -70,7 +72,7 @@
     font-size: 13px;
     font-weight: 600;
     line-height: 13px;
-    color: #1E1E1E;
+    color: variables.$title-color;
     display: flex;
     align-items: center;
   }
@@ -85,7 +87,7 @@
   }
 
   &__messages-display {
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid variables.$border-color;
     height: 100%;
     padding: 30px 0;
     display: flex;
@@ -114,19 +116,19 @@
   &__send-message {
     width: 100%;
     border-radius: 20px;
-    background-color: #EFEFEF;
+    background-color: variables.$gray-color;
     font-family: Inter, Arial, sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 12px;
     padding: 10px 12px;
-    color: #999;
+    color: variables.$text-color;
     display: flex;
     align-items: center;
     margin: 0 10px 0 0;
     
     &::placeholder{
-      color: #999;
+      color: variables.$text-color;
     }
   }
 
@@ -135,7 +137,7 @@
     height: 28px;
     min-width: 28px;
     min-height: 28px;
-    background-color: #3369F3;
+    background-color: variables.$blue-color;
     border-radius: 50%;
     background-image: url("/static/icons/arrow-right-full.svg");
     background-repeat: no-repeat;
@@ -157,7 +159,7 @@
     font-weight: 500;
     line-height: 12px;
     text-align: center;    
-    color: #999;
+    color: variables.$text-color;
     display: flex;
     align-items: center;
 
@@ -169,7 +171,7 @@
 
   &__input {
     padding: 8px 10px;
-    background-color: #EFEFEF;
+    background-color: variables.$gray-color;
     border-radius: 6px;
     width: 100%;
     font-family: Inter, Arial, sans-serif;
@@ -177,7 +179,7 @@
     font-weight: 500;
     line-height: 12px;
     text-align: center;    
-    color: #999;
+    color: variables.$text-color;
 
     &:focus &__label{
       display: none;

@@ -1,16 +1,18 @@
+@use '../../styles/variables.scss' as variables;
+
 .data {
   display: flex;
   justify-content: space-between;
   padding: 0 0 15px;
   margin: 0 0 15px;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid variables.$border-color;
 
   &__label {
     font-family: Inter, Arial, sans-serif;
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
-    color: #1E1E1E;
+    color: variables.$title-color;
   }
 
   &__value {
@@ -18,7 +20,7 @@
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
-    color: #999;
+    color: variables.$text-color;
   }
 
   &:last-child{
