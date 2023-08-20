@@ -21,4 +21,3 @@ npm run dev - Запуск проекта в режиме разработки
 500 - http://localhost:3000/src/pages/500/index.html
 
 Netlify - https://radiant-choux-52af17.netlify.app
-

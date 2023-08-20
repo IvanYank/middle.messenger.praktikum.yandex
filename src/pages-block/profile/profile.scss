@@ -1,0 +1,250 @@
+/* stylelint-disable */
+@use '../../styles/variables' as variables;
+/* stylelint-enable */
+
+.profile {
+  height: 100vh;
+  display: flex;
+
+  &__back {
+    width: 5%;
+    background-color: variables.$back-color;
+    border-right: 1px solid variables.$border-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+
+    &::after{
+      content: '';
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: variables.$blue-color;
+      background-image: url("/static/icons/arrow-left-full.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__content {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__wrapper {
+    width: 510px;
+  }
+
+  &__static-data{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__avatar {
+    min-height: 130px;
+    min-width: 130px;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-color: variables.$gray-color;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: 0.4s background-color;
+    cursor: pointer;
+
+    &:hover{
+      background-color: variables.$avatar-background-color;
+    }
+
+    &-text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 14px;
+      color: variables.$white-color;
+      opacity: 0;
+      transition: 0.4s opacity;
+    }
+
+    &:hover &-text{
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    color: variables.$title-color;
+    margin: 0 0 40px;
+  }
+
+  &__info {
+    margin: 0 0 50px;
+    width: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__change-data{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+  }
+
+  &__change-data-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__change-data-submit{
+    align-self: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: variables.$blue-color;
+    color: variables.$white-color;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin: 30px 0 0;
+    cursor: pointer;
+  }
+
+  &__change-password{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+  }
+
+  &__change-password-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__change-password-submit{
+    align-self: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: variables.$blue-color;
+    color: variables.$white-color;
+    border-radius: 8px;
+    padding: 12px 0;
+    margin: 30px 0 0;
+    cursor: pointer;
+  }
+
+  &__change-avatar-wrapper{
+    background-color: variables.$avatar-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+  }
+
+  &__change-avatar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__exit{
+    color: variables.$error-color !important;
+  }
+}
+
+.profile-button{
+  font-family: Inter, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  color: variables.$blue-color;
+  padding: 0 0 15px;
+  margin: 0 0 15px;
+  border-bottom: 1px solid variables.$border-color;
+  text-align: left;
+  cursor: pointer;
+
+  &:last-child{
+    border: none;
+    margin: 0;
+  }
+}
+ 
+.change-avatar {
+  width: 340px;
+  background-color: variables.$white-color;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 30px;
+
+  &__title {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: variables.$title-color;
+    margin: 0 0 50px;
+  }
+
+  &__label{
+    margin: 0 0 50px;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: variables.$blue-color;
+    max-width: 120px;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  &__input {
+    width: 0;
+    font-size: 0;
+  }
+
+  &__submit {
+    align-self: center;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    width: 280px;
+    background-color: variables.$blue-color;
+    color: variables.$white-color;
+    border-radius: 8px;
+    padding: 12px 0;
+    cursor: pointer;
+  }
+}

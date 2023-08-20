@@ -5,4 +5,4 @@ const phone = new RegExp('^(?=^.{10,15}$)(\\+?[0-9\\-\\s])*$');
 const message = new RegExp('^$');
 const login = new RegExp('^(?=^.{3,20}$)[A-Za-z]+([A-Za-z0-9]*|[._-]?[A-Za-z0-9]+)*$');
 
-export {email, login, password, nameText, phone, message}
+export { email, login, password, nameText, phone, message }
