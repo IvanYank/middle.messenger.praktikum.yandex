@@ -1,0 +1,59 @@
+/* stylelint-disable */
+@use '../../styles/variables.scss' as variables;
+/* stylelint-enable */
+
+.data-input {
+  padding: 0 0 15px;
+  margin: 0 0 15px;
+  border-bottom: 1px solid variables.$border-color;
+
+  &__info{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__label {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    color: variables.$title-color;
+  }
+
+  &__value {
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    color: variables.$text-color;
+    text-align: right;
+
+    &::placeholder{
+      color: variables.$text-color;
+    }
+  }
+
+  &__error{
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13px;
+    text-align: right;
+    color: variables.$error-color;
+    margin: 8px 0 0;
+    display: none;
+
+    &_active{
+      display: block;
+    }
+  }
+
+  &_error{
+    border-bottom: 1px solid variables.$error-color;
+  }
+
+  &:last-child{
+    margin: 0;
+    border: none;
+  }
+}

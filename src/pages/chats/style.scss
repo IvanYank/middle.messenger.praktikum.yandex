@@ -1,91 +1,110 @@
+/* stylelint-disable */
+@use '../../styles/variables' as variables;
+/* stylelint-enable */
+
 .chats {
   height: 100vh;
   display: flex;
+
   &__left-block {
-    background-color: #FBFBFB;
+    background-color: variables.$back-color;
     width: 24%;
     padding: 0 10px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid variables.$border-color;
   }
+
   &__search {
-    padding: 20px 0 0 0;
-    border-bottom: 1px solid #EAEAEA;
+    padding: 20px 0 0;
+    border-bottom: 1px solid variables.$border-color;
   }
+
   &__profile {
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 12px; 
     font-weight: 500;
     line-height: 12px;
-    color: #999;
-    margin: 0 0 20px 0;
+    color: variables.$text-color;
+    margin: 0 0 20px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
     &::after{
-      content: url(/static/icons/arrow-right.svg);
+      content: url("/static/icons/arrow-right.svg");
       margin: 0 0 0 8px;
     }
   }
+
   &__search-line {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
   }
+
   &__right-block {
     width: 76%;
     padding: 0 15px;
     display: flex;
     flex-direction: column;
   }
+
   &__chat-info {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid variables.$border-color;
     align-items: center;
     padding: 10px 0;
   }
+
   &__left-info {
     display: flex;
   }
+
   &__avatar {
     height: 34px;
     width: 34px;
     margin: 0 10px 0 0;
   }
+
   &__img {
     width: 100%;
     height: 100%;
   }
+
   &__name {
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 13px;
     font-weight: 600;
     line-height: 13px;
-    color: #1E1E1E;
+    color: variables.$title-color;
     display: flex;
     align-items: center;
   }
+
   &__settings {
-    background-image: url(/static/icons/settings.svg);
+    background-image: url("/static/icons/settings.svg");
     background-repeat: no-repeat;
     background-position: center;
     width: 15px;
     height: 15px;
     cursor: pointer;
   }
+
   &__messages-display {
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid variables.$border-color;
     height: 100%;
     padding: 30px 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
+
   &__send-panel {
     padding: 15px 0;
     display: flex;
     align-items: center;
   }
+
   &__send-file {
-    background-image: url(/static/icons/clip.svg);
+    background-image: url("/static/icons/clip.svg");
     background-repeat: no-repeat;
     background-position: center;
     width: 32px;
@@ -95,65 +114,76 @@
     margin: 0 10px 0 0;
     cursor: pointer;
   }
+
   &__send-message {
     width: 100%;
     border-radius: 20px;
-    background-color: #EFEFEF;
-    font-family: Inter;
+    background-color: variables.$gray-color;
+    font-family: Inter, Arial, sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 12px;
     padding: 10px 12px;
-    color: #999999;
+    color: variables.$text-color;
     display: flex;
     align-items: center;
     margin: 0 10px 0 0;
+    
+    &::placeholder{
+      color: variables.$text-color;
+    }
   }
+
   &__send-button {
     width: 28px;
     height: 28px;
     min-width: 28px;
     min-height: 28px;
-    background-color: #3369F3;
+    background-color: variables.$blue-color;
     border-radius: 50%;
-    background-image: url(/static/icons/arrow-right-full.svg);
+    background-image: url("/static/icons/arrow-right-full.svg");
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
   }
 }
+
 .search {
   position: relative;
+
   &__label{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 12px; 
     font-weight: 500;
     line-height: 12px;
     text-align: center;    
-    color: #999;
+    color: variables.$text-color;
     display: flex;
     align-items: center;
+
     &::before{
-      content: url(/static/icons/search.svg);
+      content: url("/static/icons/search.svg");
       margin: 0 7px 0 0;
     }
   }
+
   &__input {
     padding: 8px 10px;
-    background-color: #EFEFEF;
+    background-color: variables.$gray-color;
     border-radius: 6px;
     width: 100%;
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     font-size: 12px; 
     font-weight: 500;
     line-height: 12px;
     text-align: center;    
-    color: #999;
-    &:focus  .search__label{
+    color: variables.$text-color;
+
+    &:focus &__label{
       display: none;
     }
   }
