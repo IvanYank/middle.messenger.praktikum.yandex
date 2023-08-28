@@ -1,20 +1,19 @@
-import login from './src/pages/login';
-import registration from './src/pages/registration';
-import chats from './src/pages/chats';
-import profile from './src/pages/profile';
-import page404 from './src/pages/404';
-import page500 from './src/pages/500';
-import Router from './src/services/router';
+import loginInitData from './src/pages/login';
+import registrationInitData from './src/pages/registration';
+import page404InitData from './src/pages/404';
+import page500InitData from './src/pages/500';
+import LoginPage from './src/pages-block/login/login';
+import RegistrationPage from './src/pages-block/registration/registration';
+import Page404 from './src/pages-block/404/404';
+import Page500 from './src/pages-block/500/500';
+import router from './src/services/router';
+import createPage from './src/utils/createPage';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const router = new Router('.app');
-
   router
-    .use('/', login)
-    .use('/sign-up', registration)
-    .use('/messenger', chats)
-    .use('/settings', profile)
-    .use('/404', page404)
-    .use('/500', page500)
+    .use('/', createPage(LoginPage, loginInitData))
+    .use('/sign-up', createPage(RegistrationPage, registrationInitData))
+    .use('/404', createPage(Page404, page404InitData))
+    .use('/500', createPage(Page500, page500InitData))
     .start();
 });

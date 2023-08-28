@@ -3,6 +3,7 @@ import Handlebars from 'handlebars';
 import isEqual from '../utils/isEqual';
 import merge from '../utils/merge';
 import { v4 as makeUUID } from 'uuid';
+import { Indexed } from './types';
 
 class Block {
   private static EVENTS = {
@@ -21,10 +22,8 @@ class Block {
     wrapper: boolean;
   };
   private _eventBus: EventBus;
-  /* eslint-disable */
-  props: Record<string, any>;
-  children: Record<string, Block>;
-  /* eslint-enable */
+  props: Indexed;
+  children: Record<string, Block | Block[]>;
 
   constructor(tagName: string = 'div', propsAndChildren: object, baseClass: string = '', wrapper: boolean = true) {
     this._eventBus = new EventBus();
@@ -46,13 +45,23 @@ class Block {
   }
 
   private _getChildren(propsAndChildren: object) {
-    const children: Record<string, Block> = {};
-    /* eslint-disable */
-    const props: Record<string, any> = {};
-    /* eslint-enable */
+    const children: Record<string, Block | Block[]> = {};
+    const props: Indexed = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
+      if (Array.isArray(value)) {
+        let pass = true;
+
+        for (const item of value) {
+          if (!(item instanceof Block)) {
+            pass = false;
+          }
+        }
+
+        if (pass) {
+          children[key] = value;
+        }
+      } else if (value instanceof Block) {
         children[key] = value;
       } else {
         props[key] = value;
@@ -85,7 +94,13 @@ class Block {
     this.componentDidMount();
 
     Object.values(this.children).forEach(child => {
-      child.dispatchComponentDidMount();
+      if (Array.isArray(child)) {
+        child.forEach((item) => {
+          item.dispatchComponentDidMount();
+        })
+      } else {
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
@@ -95,23 +110,54 @@ class Block {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: object, newProps: object): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
+  private _componentDidUpdate(oldData: Indexed, newData: Indexed, mode: string): void {
+    const response = this.componentDidUpdate(oldData, newData);
 
-    if (!response) {
+    if (response) {
       this._removeEvents();
-      this.props = merge(this.props, newProps)
+
+      if (mode == 'props') {
+        this.props = merge(oldData, newData);
+      } else if (mode == 'children') {
+        this.children = merge(oldData, newData);
+      } else {
+        this.props = merge(oldData.props, newData.props);
+        this.children = merge(oldData.children, newData.children);
+      }
+
+      Object.values(this.children).forEach(child => {
+        if (Array.isArray(child)) {
+          child.forEach((item) => {
+            item._render();
+          })
+        } else {
+          child._render();
+        }
+      });
+
       this._render();
     }
   }
 
-  componentDidUpdate(oldProps: object, newProps: object): boolean {
-    return isEqual(oldProps, newProps);
+  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+    return !isEqual(oldProps, newProps);
   }
 
   setProps(nextProps: object): void {
     if (nextProps) {
-      this._componentDidUpdate(this.props, nextProps);
+      this._componentDidUpdate(this.props, nextProps, 'props');
+    }
+  }
+
+  setChildren(nextChildrens: object): void {
+    if (nextChildrens) {
+      this._componentDidUpdate(this.children, nextChildrens, 'children');
+    }
+  }
+
+  setPropsChildren(nextProps: object, nextChildren: object) {
+    if (nextProps && nextChildren) {
+      this._componentDidUpdate({ children: this.children, props: this.props }, { children: nextChildren, props: nextProps }, 'props&children');
     }
   }
 
@@ -129,7 +175,11 @@ class Block {
     }
 
     this._addEvents();
+
+    this.post();
   }
+
+  post() { }
 
   render(): DocumentFragment | string {
     return new DocumentFragment();
@@ -141,9 +191,7 @@ class Block {
 
   private _makePropsProxy(props: object) {
     const propsList = new Proxy(props, {
-      /* eslint-disable */
-      get(target: Record<string, any>, prop: string) {
-        /* eslint-enable */
+      get(target: Indexed, prop: string) {
         if (target[prop]) {
           const value = target[prop];
           return typeof value === 'function' ? value.bind(target) : value;
@@ -151,9 +199,7 @@ class Block {
           return '';
         }
       },
-      /* eslint-disable */
-      set(target: Record<string, any>, prop: string, value): boolean {
-        /* eslint-enable */
+      set(target: Indexed, prop: string, value): boolean {
         target[prop] = value;
         return true;
       }
@@ -217,21 +263,37 @@ class Block {
     this.getContent().style.display = 'none';
   }
 
-  compile(template: string, props: Record<string, any>) {
+  compile(template: string, props: Indexed) {
     const propsAndStubs = { ...props };
 
     Object.entries(this.children).forEach(([key, child]) => {
-      propsAndStubs[key] = `<div data-id='${child._id}'></div>`
+      if (Array.isArray(child)) {
+        const newArr = [];
+
+        for (const item of child) {
+          newArr.push(`<div data-id='${item._id}'></div>`);
+        }
+        propsAndStubs[key] = newArr;
+      } else {
+        propsAndStubs[key] = `<div data-id='${child._id}'></div>`
+      }
     });
 
     const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
     Object.values(this.children).forEach(child => {
-      const stub = fragment.content.querySelector(`[data-id='${child._id}']`);
+      if (Array.isArray(child)) {
+        child.forEach((item) => {
+          const stub = fragment.content.querySelector(`[data-id='${item._id}']`);
 
-      stub?.replaceWith(child.getContent());
+          stub?.replaceWith(item.getContent());
+        })
+      } else {
+        const stub = fragment.content.querySelector(`[data-id='${child._id}']`);
+
+        stub?.replaceWith(child.getContent());
+      }
     });
 
     return fragment.content;

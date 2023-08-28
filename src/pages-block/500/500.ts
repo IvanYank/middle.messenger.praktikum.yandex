@@ -3,7 +3,7 @@ import page500 from './500.tmpl'
 
 export default class Page500 extends Block {
   constructor(props: object) {
-    super('div', props, 'content-500', true)
+    super('div', props, 'content-500', true);
   }
 
   render(): DocumentFragment {

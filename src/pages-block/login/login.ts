@@ -3,7 +3,7 @@ import login from './login.tmpl'
 
 export default class LoginPage extends Block {
   constructor(props: object) {
-    super('form', props, 'form-login', true)
+    super('form', props, 'form-login', true);
   }
 
   render(): DocumentFragment {

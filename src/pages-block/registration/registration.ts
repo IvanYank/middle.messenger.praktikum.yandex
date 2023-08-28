@@ -3,7 +3,7 @@ import reg from './registration.tmpl'
 
 export default class RegistrationPage extends Block {
   constructor(props: object) {
-    super('form', props, 'form-reg', true)
+    super('form', props, 'form-reg', true);
   }
 
   render(): DocumentFragment {

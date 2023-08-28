@@ -3,7 +3,7 @@ import dialog from './dialog.tmpl'
 
 export default class Dialog extends Block {
   constructor(props: object) {
-    super('div', props, 'dialog', true)
+    super('button', props, 'dialog', true);
   }
 
   render(): DocumentFragment {

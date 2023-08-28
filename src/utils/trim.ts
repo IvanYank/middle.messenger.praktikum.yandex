@@ -1,15 +1,15 @@
-function trim(str: string, param: string = ''){  
+function trim(str: string, param: string = '') {
   let newReg = '';
-  param.split('').forEach((symbol)=>{
+  param.split('').forEach((symbol) => {
     newReg = newReg + symbol + '|';
   })
 
-  newReg = newReg.slice(0,-1)
+  newReg = newReg.slice(0, -1)
 
   return str
     .replace(new RegExp('^ *'), '')
     .replace(new RegExp(' *$'), '')
-    .replace(new RegExp(newReg,'g'),'');
+    .replace(new RegExp(newReg, 'g'), '');
 }
 
 export default trim;

@@ -1,10 +1,7 @@
 import CustomLink from "../components/custom-link/custom-link";
-import Page404 from "../pages-block/404/404";
 import Router from "../services/router";
 
-const router = new Router('.app');
-
-const page = new Page404({
+const page404InitData = {
   customLink: new CustomLink({
     text: 'Список чатов',
     attributes: {
@@ -16,11 +13,11 @@ const page = new Page404({
       click: {
         element: '',
         event: () => {
-          router.go('/messenger');
+          Router.go('/messenger');
         }
       }
     }
   }),
-});
+};
 
-export default page
+export default page404InitData

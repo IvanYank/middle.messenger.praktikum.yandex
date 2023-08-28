@@ -85,6 +85,12 @@
     }
   }
 
+  &__image{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+  }
+
   &__title {
     font-family: Inter, Arial, sans-serif;
     font-size: 16px;
@@ -232,6 +238,7 @@
   &__input {
     width: 0;
     font-size: 0;
+    height: 0;
   }
 
   &__submit {
@@ -245,6 +252,5 @@
     color: variables.$white-color;
     border-radius: 8px;
     padding: 12px 0;
-    cursor: pointer;
   }
 }

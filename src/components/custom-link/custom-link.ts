@@ -3,7 +3,7 @@ import customLink from './custom-link.tmpl'
 
 export default class CustomLink extends Block {
   constructor(props: object) {
-    super('button', props, '', false)
+    super('button', props, '', false);
   }
 
   render(): DocumentFragment {

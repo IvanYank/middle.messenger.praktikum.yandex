@@ -1,3 +1,5 @@
+import queryString from "../utils/queryString";
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -7,82 +9,73 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
-  /* eslint-disable */
-  data?: any,
-  /* eslint-enable */
+  data?: object,
   headers?: Record<string, string>,
-  timeout?: number;
+  timeout?: number,
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data: Record<string, string>) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be Object');
-  }
-
-  const keys:Array<string> = Object.keys(data);
-  return keys.reduce((result, key: string, index: number) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-  }, '?');
-}
+const baseAPIUrl = 'https://ya-praktikum.tech/api/v2/';
 
 class HTTPTransport {
-  get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+  static get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   }
 
-  post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+  static post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   }
 
-  put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+  static put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   }
 
-  delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+  static delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   }
 
-  request(url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<XMLHttpRequest> {
-    const {method, data, headers} = options;
+  private static request(url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<XMLHttpRequest> {
+    const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {
-      if (!method) {
-        reject('Need to be method');
-        return;
-      }
-
       const xhr = new XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
       xhr.open(
-        method, 
-        isGet && data
-        ? `${url}${queryStringify(data)}`
-        : url,
+        method,
+        isGet && data ? `${baseAPIUrl}${url}?${queryString(data)}` : `${baseAPIUrl}${url}`,
       );
 
-      if(headers){
+      if (headers) {
         Object.keys(headers).forEach(key => {
           xhr.setRequestHeader(key, headers[key]);
         });
       }
 
-      xhr.onload = function() {
-        resolve(xhr);
-      };
-  
-      xhr.onabort = reject;
-      xhr.onerror = reject;
+      xhr.onabort = () => reject(JSON.parse(xhr.response));
+      xhr.onerror = () => reject(JSON.parse(xhr.response));
+      xhr.ontimeout = () => reject(JSON.parse(xhr.response));
 
       xhr.timeout = timeout;
-      xhr.ontimeout = reject;
-      
+      xhr.withCredentials = true;
+
+      xhr.onload = () => {
+        if (xhr.status == 200) {
+          resolve(xhr);
+        } else {
+          reject(xhr.response)
+        }
+      };
+
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
       }
     });
   }

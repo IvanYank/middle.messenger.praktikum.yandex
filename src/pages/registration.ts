@@ -1,11 +1,9 @@
+import RegistrationController from '../controllers/registration-controller';
 import Input from '../components/input/input';
 import Button from '../components/button/button';
-import RegistrationPage from '../pages-block/registration/registration';
 import { inputVal, passRepeatVal } from '../utils/validation';
 import { email, login, nameText, phone, password } from '../utils/regular-expressions';
 import Router from '../services/router';
-
-const router = new Router('.app');
 
 const emailInput = new Input({
   label: 'Почта',
@@ -98,7 +96,7 @@ const passwordRepeatInput = new Input({
   },
 })
 
-// const inputs: Input[] = [emailInput, loginInput, nameInput, surnameInput, phoneInput, passwordInput, passwordRepeatInput];
+const inputs: Input[] = [emailInput, loginInput, nameInput, surnameInput, phoneInput, passwordInput, passwordRepeatInput];
 
 const registrationButton = new Button({
   text: 'Зарегистрироваться',
@@ -110,30 +108,8 @@ const registrationButton = new Button({
   events: {
     click: {
       element: '',
-      event: (e: Event) => {
-        router.go('/messenger')
-        // e.preventDefault();
-        // const passes: boolean[] = [];
-        // const info: Record<string, string> = {};
-
-        // inputs.forEach((block) => {
-        //   const input = block.getContent().querySelector('input') as HTMLInputElement;
-        //   const name = input.getAttribute('name') as string;
-        //   const error: HTMLElement | null = block.getContent().querySelector('p');
-
-        //   input?.dispatchEvent(new Event('blur'))
-        //   error?.classList.contains('form__error_active') ? passes.push(false) : passes.push(true);
-
-        //   info[name] = input.value;
-        // })
-
-        // if (!passes.includes(false)) {
-        //   console.log(info);
-
-        //   setTimeout(() => {
-        //     document.location.href = '/src/pages/chats/index.html';
-        //   }, 5000)
-        // }
+      event: () => {
+        RegistrationController.signUp(inputs)
       },
     }
   }
@@ -149,36 +125,14 @@ const enterButton = new Button({
   events: {
     click: {
       element: '',
-      event: (e: Event) => {
-        router.go('/')
-        // e.preventDefault();
-        // const passes: boolean[] = [];
-        // const info: Record<string, string> = {};
-
-        // inputs.forEach((block) => {
-        //   const input = block.getContent().querySelector('input') as HTMLInputElement;
-        //   const name = input.getAttribute('name') as string;
-        //   const error: HTMLElement | null = block.getContent().querySelector('p');
-
-        //   input?.dispatchEvent(new Event('blur'))
-        //   error?.classList.contains('form__error_active') ? passes.push(false) : passes.push(true);
-
-        //   info[name] = input.value;
-        // })
-
-        // if (!passes.includes(false)) {
-        //   console.log(info);
-
-        //   setTimeout(() => {
-        //     document.location.href = '/src/pages/chats/index.html';
-        //   }, 5000)
-        // }
+      event: () => {
+        Router.go('/')
       },
     }
   }
 })
 
-const page = new RegistrationPage({
+const registrationInitData = {
   title: 'Регистрация',
   email: emailInput,
   login: loginInput,
@@ -193,6 +147,6 @@ const page = new RegistrationPage({
     action: '',
     method: '#',
   },
-});
+};
 
-export default page
+export default registrationInitData

@@ -1,21 +1,18 @@
 import merge from "./merge";
-
-type Indexed<T = any> = {
-  [key in string]: T;
-};
+import { Indexed } from "../services/types";
 
 function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
   if (typeof object !== 'object' || object === null) {
-      return object;
+    return object;
   }
 
   if (typeof path !== 'string') {
-      throw new Error('path must be string');
+    throw new Error('path must be string');
   }
 
-  const result = path.split('.').reduceRight<Indexed>((acc, key) => ({
-      [key]: acc,
-  }), value as any);
+  /* eslint-disable */
+  const result = path.split('.').reduceRight<Indexed>((acc, key) => ({ [key]: acc }), value as any);
+  /* eslint-enable */
   return merge(object as Indexed, result);
 }
 

@@ -1,52 +1,43 @@
-import Data from '../components/data/data';
 import DataInput from '../components/data-input/data-input';
+import Data from '../components/data/data';
 import CustomLink from '../components/custom-link/custom-link';
-import ProfilePage from '../pages-block/profile/profile';
 import { dataVal, dataRepeatVal } from '../utils/validation';
 import { email, login, nameText, phone, password } from '../utils/regular-expressions';
 import Router from '../services/router';
+import UserAPI from '../api/user-api';
 
-const router = new Router('.app');
-const avatar = new URL('../../../static/images/Union.png', import.meta.url).href;
-
-const emailData: Data = new Data({
-  value: 'pochta@yandex.ru',
-  label: 'Почта',
+const emailData = new Data({
+  label: 'Почта'
 })
 
-const loginData: Data = new Data({
-  value: 'ivanivanov',
-  label: 'Логин',
+const loginData = new Data({
+  label: 'Логин'
 })
 
-const nameData: Data = new Data({
-  value: 'Иван',
-  label: 'Имя',
+const firstNameData = new Data({
+  label: 'Имя'
 })
 
-const surnameData: Data = new Data({
-  value: 'Иванов',
-  label: 'Фамилия',
+const secondNameData = new Data({
+  label: 'Фамилия'
 })
 
-const nicknameData: Data = new Data({
-  value: 'Иван',
-  label: 'Имя в чате',
+const dispayNameData = new Data({
+  label: 'Имя в чате'
 })
 
-const phoneData: Data = new Data({
-  value: '+7 (909) 967 30 30',
-  label: 'Телефон',
+const phoneData = new Data({
+  label: 'Телефон'
 })
-
-
 
 const emailInput: DataInput = new DataInput({
   label: "Почта",
-  placeholder: "pochta@yandex.ru",
   id: "email",
   name: "email",
   type: "email",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -57,10 +48,12 @@ const emailInput: DataInput = new DataInput({
 
 const loginInput: DataInput = new DataInput({
   label: "Логин",
-  placeholder: "ivanivanov",
   id: "login",
   name: "login",
   type: "text",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -71,10 +64,12 @@ const loginInput: DataInput = new DataInput({
 
 const nameInput: DataInput = new DataInput({
   label: "Имя",
-  placeholder: "Иван",
   id: "first_name",
   name: "first_name",
   type: "text",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -85,10 +80,12 @@ const nameInput: DataInput = new DataInput({
 
 const surnameInput: DataInput = new DataInput({
   label: "Фамилия",
-  placeholder: "Иванов",
   id: "second_name",
   name: "second_name",
   type: "text",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -99,10 +96,12 @@ const surnameInput: DataInput = new DataInput({
 
 const nicknameInput: DataInput = new DataInput({
   label: "Имя в чате",
-  placeholder: "Иван",
   id: "display_name",
   name: "display_name",
   type: "text",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -113,10 +112,12 @@ const nicknameInput: DataInput = new DataInput({
 
 const phoneInput: DataInput = new DataInput({
   label: "Телефон",
-  placeholder: "+7 (909) 967 30 30",
   id: "phone",
   name: "phone",
   type: "text",
+  attributes: {
+    class: 'info',
+  },
   events: {
     blur: {
       element: 'input',
@@ -131,6 +132,9 @@ const oldPassInput: DataInput = new DataInput({
   id: "oldPassword",
   name: "oldPassword",
   type: "password",
+  attributes: {
+    class: 'pass',
+  },
   events: {
     blur: {
       element: 'input',
@@ -145,6 +149,9 @@ const newPassInput: DataInput = new DataInput({
   id: "newPassword",
   name: "newPassword",
   type: "password",
+  attributes: {
+    class: 'pass',
+  },
   events: {
     blur: {
       element: 'input',
@@ -159,6 +166,9 @@ const repeatNewPassInput: DataInput = new DataInput({
   id: "newPasswordRepeat",
   name: "newPasswordRepeat",
   type: "password",
+  attributes: {
+    class: 'pass',
+  },
   events: {
     blur: {
       element: 'input',
@@ -167,30 +177,18 @@ const repeatNewPassInput: DataInput = new DataInput({
   }
 })
 
-// const data: Data[] = [emailData, loginData, nameData, surnameData, nicknameData, telData];
-const dataInputs: DataInput[] = [emailInput, loginInput, nameInput, surnameInput, nicknameInput, phoneInput];
-const passwordInputs: DataInput[] = [oldPassInput, newPassInput, repeatNewPassInput];
-
-// const obj = {
-//   '.profile__info': data,
-//   '.profile__change-data-list': dataInputs,
-//   '.profile__change-password-list': passwordInputs,
-// };
-
-const page = new ProfilePage({
-  'name-title': 'Иван',
-  'profile-image': avatar,
+const profileInitData = {
   'email': emailData,
   'login': loginData,
-  'name': nameData,
-  'surname': surnameData,
-  'nickname': nicknameData,
+  'first_name': firstNameData,
+  'second_name': secondNameData,
+  'display_name': dispayNameData,
   'phone': phoneData,
   'email-input': emailInput,
   'login-input': loginInput,
-  'name-input': nameInput,
-  'surname-input': surnameInput,
-  'nickname-input': nicknameInput,
+  'first_name-input': nameInput,
+  'second_name-input': surnameInput,
+  'display_name-input': nicknameInput,
   'phone-input': phoneInput,
   'oldPassword-input': oldPassInput,
   'newPassword-input': newPassInput,
@@ -206,8 +204,7 @@ const page = new ProfilePage({
       click: {
         element: '',
         event: () => {
-          // router.go('/messenger');
-          router.back();
+          Router.back();
         }
       }
     }
@@ -223,96 +220,13 @@ const page = new ProfilePage({
       click: {
         element: '',
         event: () => {
-          router.go('/');
+          UserAPI.logOut().then(() => {
+            Router.go('/');
+          });
         }
       }
     }
   }),
-})
+}
 
-const profileStatic = page.getContent().querySelector('.profile__static-data') as HTMLElement;
-
-const changeAvatar = page.getContent().querySelector('.profile__avatar') as HTMLElement;
-const changeData = page.getContent().querySelector('.profile__change-data-button') as HTMLElement;
-const changePassword = page.getContent().querySelector('.profile__change-password-button') as HTMLElement;
-
-const changeAvatarWrap = page.getContent().querySelector('.profile__change-avatar-wrapper') as HTMLElement;
-const changeDataForm = page.getContent().querySelector('.profile__change-data') as HTMLElement;
-const changePasswordForm = page.getContent().querySelector('.profile__change-password') as HTMLElement;
-
-const changeAvatarSubmit = page.getContent().querySelector('.change-avatar__submit') as HTMLElement;
-const changeDataSubmit = page.getContent().querySelector('.profile__change-data-submit') as HTMLElement;
-const changePasswordSubmit = page.getContent().querySelector('.profile__change-password-submit') as HTMLElement;
-
-changeAvatar.addEventListener('click', () => {
-  changeAvatarWrap.style.display = 'block';
-})
-
-changeAvatarWrap.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement;
-  if (target.classList.contains('profile__change-avatar-wrapper')) {
-    changeAvatarWrap.style.display = 'none';
-  }
-})
-
-changeAvatarSubmit.addEventListener('click', () => {
-  changeAvatarWrap.style.display = 'none';
-})
-
-changeData.addEventListener('click', () => {
-  changeDataForm.style.display = 'flex';
-  profileStatic.style.display = 'none';
-})
-
-changeDataSubmit.addEventListener('click', () => {
-  const passes: boolean[] = [];
-  const info: Record<string, string> = {};
-
-  dataInputs.forEach((block) => {
-    const input = block.getContent().querySelector('input') as HTMLInputElement;
-    const name = input.getAttribute('name') as string;
-    const error: HTMLElement | null = block.getContent().querySelector('p');
-
-    input?.dispatchEvent(new Event('blur'))
-    error?.classList.contains('data-input__error_active') ? passes.push(false) : passes.push(true);
-
-    info[name] = input.value;
-  })
-
-  if (!passes.includes(false)) {
-    console.log(info);
-
-    changeDataForm.style.display = 'none';
-    profileStatic.style.display = 'flex';
-  }
-})
-
-changePassword.addEventListener('click', () => {
-  changePasswordForm.style.display = 'flex';
-  profileStatic.style.display = 'none';
-})
-
-changePasswordSubmit.addEventListener('click', () => {
-  const passes: boolean[] = [];
-  const info: Record<string, string> = {};
-
-  passwordInputs.forEach((block) => {
-    const input = block.getContent().querySelector('input') as HTMLInputElement;
-    const name = input.getAttribute('name') as string;
-    const error: HTMLElement | null = block.getContent().querySelector('p');
-
-    input?.dispatchEvent(new Event('blur'))
-    error?.classList.contains('data-input__error_active') ? passes.push(false) : passes.push(true);
-
-    info[name] = input.value;
-  })
-
-  if (!passes.includes(false)) {
-    console.log(info);
-
-    changePasswordForm.style.display = 'none';
-    profileStatic.style.display = 'flex';
-  }
-})
-
-export default page
+export default profileInitData

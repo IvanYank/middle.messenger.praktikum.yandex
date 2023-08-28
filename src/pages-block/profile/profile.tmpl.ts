@@ -13,9 +13,9 @@ const template =
       <div class="profile__info">
         {{{email}}}
         {{{login}}}
-        {{{name}}}
-        {{{surname}}}
-        {{{nickname}}}
+        {{{first_name}}}
+        {{{second_name}}}
+        {{{display_name}}}
         {{{phone}}}
       </div>
       <div class="profile__buttons">
@@ -28,9 +28,9 @@ const template =
       <div class="profile__change-data-list">
         {{{email-input}}}
         {{{login-input}}}
-        {{{name-input}}}
-        {{{surname-input}}}
-        {{{nickname-input}}}
+        {{{first_name-input}}}
+        {{{second_name-input}}}
+        {{{display_name-input}}}
         {{{phone-input}}}
       </div>
       <button type="button" class="profile__change-data-submit">Сохранить</button>
@@ -48,7 +48,7 @@ const template =
     <form action="#" class="change-avatar profile__change-avatar">
       <p class="change-avatar__title">Загрузите файл</p>
       <label for="avatar" class="change-avatar__label">Выбрать файл на компьютере</label>
-      <input id="avatar" type="file" class="change-avatar__input" name="avatar">
+      <input id="avatar" type="file" class="change-avatar__input" name="avatar" accept="image/*">
       <button type="button" class="change-avatar__submit">Поменять</button>
     </form>
   </div>

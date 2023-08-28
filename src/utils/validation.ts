@@ -2,8 +2,6 @@ function inputVal(test: RegExp, e: Event) {
   const target = e.target as HTMLInputElement;
   const errorElem = target.parentElement?.querySelector(`.form__error`);
 
-  console.log(errorElem)
-
   if (!test.test(target.value)) {
     target.classList.add(`form__input_error`);
     errorElem?.classList.add(`form__error_active`);

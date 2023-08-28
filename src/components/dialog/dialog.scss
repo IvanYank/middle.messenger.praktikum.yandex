@@ -6,6 +6,7 @@
   display: flex;
   border-bottom: 1px solid variables.$border-color;
   padding: 8px;
+  width: 100%;
 
   &__avatar {
     display: flex;
@@ -29,6 +30,7 @@
   &__text {
     margin: 0 15px 0 0;
     width: 100%;
+    text-align: left;
   }
 
   &__name {
@@ -74,9 +76,13 @@
     font-weight: 500;
     line-height: 12px;
     color: variables.$white-color;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+    
+    &_show{
+      display:flex
+    }
   }
 
   &__0{
