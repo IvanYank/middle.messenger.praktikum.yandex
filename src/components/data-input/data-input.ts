@@ -1,13 +1,12 @@
-import Handlebars from 'handlebars';
 import Block from '../../services/block'
-import input from './data-input.tmpl'
+import dataInput from './data-input.tmpl'
 
-export default class ButtonLink extends Block {
-  constructor(props){
-    super('div', props, true)
+export default class DataInput extends Block {
+  constructor(props: object) {
+    super('div', props, 'data-input', true);
   }
 
-  render(): string {    
-    return Handlebars.compile(input)(this.props);
+  render(): DocumentFragment {
+    return this.compile(dataInput, this.props);
   }
 }

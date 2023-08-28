@@ -1,7 +1,12 @@
+/* stylelint-disable */
+@use '../../styles/variables.scss' as variables;
+/* stylelint-enable */
+
 .dialog {
   display: flex;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid variables.$border-color;
   padding: 8px;
+  width: 100%;
 
   &__avatar {
     display: flex;
@@ -13,7 +18,7 @@
     width: 47px;
     height: 47px;
     border-radius: 50%;
-    background-color: #EFEFEF;
+    background-color: variables.$gray-color;
     margin: 0 10px 0 0;
 
     img{
@@ -25,6 +30,7 @@
   &__text {
     margin: 0 15px 0 0;
     width: 100%;
+    text-align: left;
   }
 
   &__name {
@@ -40,7 +46,7 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
-    color: #999;
+    color: variables.$text-color;
     max-width: 190px;
     overflow: hidden;
   }
@@ -57,22 +63,26 @@
     font-size: 9px;
     font-weight: 500;
     line-height: 13px;
-    color: #999;
+    color: variables.$text-color;
   }
 
   &__count {
     width: 20px;
     height: 20px;
-    background-color: #3369F3;
+    background-color: variables.$blue-color;
     border-radius: 50%;
     font-family: Inter, Arial, sans-serif;
     font-size: 11px;
     font-weight: 500;
     line-height: 12px;
-    color: #fff;
-    display: flex;
+    color: variables.$white-color;
+    display: none;
     align-items: center;
     justify-content: center;
+    
+    &_show{
+      display:flex
+    }
   }
 
   &__0{

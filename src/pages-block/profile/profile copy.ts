@@ -1,0 +1,199 @@
+import Block from '../../services/block'
+import Data from '../../components/data/data';
+import profile from './profile.tmpl'
+import store, { StoreEvents } from '../../services/store';
+import isEqual from '../../utils/isEqual';
+import UserAPI from '../../api/user-api';
+import { Indexed } from '../../services/types';
+
+const defaultAvatar = new URL('../../../static/images/Union.png', import.meta.url).href;
+
+export default class ProfilePage extends Block {
+  constructor(props: object) {
+    super('div', props, 'profile', true)
+
+    this.children.email = new Data({
+      label: 'Почта',
+    })
+
+    this.children.login = new Data({
+      label: 'Логин',
+    })
+
+    this.children.first_name = new Data({
+      label: 'Имя',
+    })
+
+    this.children.second_name = new Data({
+      label: 'Фамилия',
+    })
+
+    this.children.display_name = new Data({
+      label: 'Имя в чате',
+    })
+
+    this.children.phone = new Data({
+      label: 'Телефон',
+    })
+
+    let wrapperName: HTMLElement | null = null;
+
+    const profileStatic = this.getContent().querySelector('.profile__static-data') as HTMLElement;
+    const profileContent = this.getContent().querySelector('.profile__content') as HTMLElement;
+
+    const changeAvatar = this.getContent().querySelector('.profile__avatar') as HTMLElement;
+    const changeData = this.getContent().querySelector('.profile__change-data-button') as HTMLElement;
+    const changePassword = this.getContent().querySelector('.profile__change-password-button') as HTMLElement;
+
+    const changeAvatarWrap = this.getContent().querySelector('.profile__change-avatar-wrapper') as HTMLElement;
+    const changeDataForm = this.getContent().querySelector('.profile__change-data') as HTMLElement;
+    const changePasswordForm = this.getContent().querySelector('.profile__change-password') as HTMLElement;
+
+    const changeAvatarSubmit = this.getContent().querySelector('.change-avatar__submit') as HTMLElement;
+    const changeDataSubmit = this.getContent().querySelector('.profile__change-data-submit') as HTMLElement;
+    const changePasswordSubmit = this.getContent().querySelector('.profile__change-password-submit') as HTMLElement;
+
+    changeAvatar.addEventListener('click', () => {
+      changeAvatarWrap.style.display = 'block';
+    })
+
+    changeAvatarWrap.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('profile__change-avatar-wrapper')) {
+        changeAvatarWrap.style.display = 'none';
+      }
+    })
+
+    changeAvatarSubmit.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+
+      const form = changeAvatarWrap.querySelector('.profile__change-avatar') as HTMLFormElement;
+      const formData = new FormData(form);
+
+      UserAPI.changeAvatar(formData).then((response) => {
+        store.set('user', JSON.parse(response.response), StoreEvents.UpdatedProfile)
+      })
+
+      changeAvatarWrap.style.display = 'none';
+    })
+
+    changeData.addEventListener('click', () => {
+      changeDataForm.style.display = 'flex';
+      profileStatic.style.display = 'none';
+      wrapperName = changeDataForm;
+    })
+
+    changeDataSubmit.addEventListener('click', () => {
+      const passes: boolean[] = [];
+      const info: Record<string, string> = {};
+
+      const dataInputs = Object.values(this.children).filter((item) => {
+        const child = item as Block;
+        return child.getContent().classList.contains('data-input') && child.getContent().classList.contains('info')
+      })
+
+      dataInputs.forEach((item) => {
+        const block = item as Block;
+        const input = block.getContent().querySelector('input') as HTMLInputElement;
+        const name = input.getAttribute('name') as string;
+        const error: HTMLElement | null = block.getContent().querySelector('p');
+
+        input?.dispatchEvent(new Event('blur'))
+        error?.classList.contains('data-input__error_active') ? passes.push(false) : passes.push(true);
+
+        info[name] = input.value;
+      })
+
+      if (!passes.includes(false)) {
+        UserAPI.changeData(info).then((response) => {
+          store.set('user', JSON.parse(response.response), StoreEvents.UpdatedProfile)
+        });
+
+        changeDataForm.style.display = 'none';
+        profileStatic.style.display = 'flex';
+        wrapperName = null;
+      }
+    })
+
+    changePassword.addEventListener('click', () => {
+      changePasswordForm.style.display = 'flex';
+      profileStatic.style.display = 'none';
+      wrapperName = changePasswordForm;
+    })
+
+    changePasswordSubmit.addEventListener('click', () => {
+      const passes: boolean[] = [];
+      const info: Record<string, string> = {};
+
+      const passwordInputs = Object.values(this.children).filter((item) => {
+        const child = item as Block;
+        return child.getContent().classList.contains('data-input') && child.getContent().classList.contains('pass')
+      })
+
+      passwordInputs.forEach((item) => {
+        const block = item as Block;
+        const input = block.getContent().querySelector('input') as HTMLInputElement;
+        const name = input.getAttribute('name') as string;
+        const error: HTMLElement | null = block.getContent().querySelector('p');
+
+        input?.dispatchEvent(new Event('blur'))
+        error?.classList.contains('data-input__error_active') ? passes.push(false) : passes.push(true);
+
+        info[name] = input.value;
+      })
+
+      if (!passes.includes(false)) {
+        UserAPI.chandePass(info)
+
+        changePasswordForm.style.display = 'none';
+        profileStatic.style.display = 'flex';
+        wrapperName = null;
+      }
+    })
+
+    profileContent.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('profile__content') && wrapperName != null) {
+        wrapperName.style.display = 'none';
+        profileStatic.style.display = 'flex';
+        wrapperName = null;
+      }
+    })
+
+    store.on(StoreEvents.UpdatedProfile, () => {
+      const newData = store.getState();
+      newData['profile-image'] = newData.user.avatar ? `https://ya-praktikum.tech/api/v2/resources${newData.user.avatar}` : defaultAvatar;
+      newData['name-title'] = newData.user.first_name;
+
+      this.setProps(newData);
+    });
+  }
+
+  render(): DocumentFragment {
+    return this.compile(profile, this.props);
+  }
+
+  show(): void {
+    this.getContent().style.display = 'flex';
+  }
+
+  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+    if (!isEqual(oldProps, newProps)) { 
+      (this.children['email'] as Block).setProps({ value: newProps.user.email });
+      (this.children['login'] as Block).setProps({ value: newProps.user.login });
+      (this.children['first_name'] as Block).setProps({ value: newProps.user.first_name });
+      (this.children['second_name'] as Block).setProps({ value: newProps.user.second_name });
+      (this.children['display_name'] as Block).setProps({ value: newProps.user.display_name });
+      (this.children['phone'] as Block).setProps({ value: newProps.user.phone });
+      (this.children['email-input'] as Block).setProps({ placeholder: newProps.user.email });
+      (this.children['login-input'] as Block).setProps({ placeholder: newProps.user.login });
+      (this.children['first_name-input'] as Block).setProps({ placeholder: newProps.user.first_name });
+      (this.children['second_name-input'] as Block).setProps({ placeholder: newProps.user.second_name });
+      (this.children['display_name-input'] as Block).setProps({ placeholder: newProps.user.display_name });
+      (this.children['phone-input'] as Block).setProps({ placeholder: newProps.user.phone });
+
+      return true;
+    }
+    return false;
+  }
+}

@@ -1,16 +1,26 @@
+/* stylelint-disable */
+@use '../../styles/variables.scss' as variables;
+/* stylelint-enable */
+
 .message {
-  padding: 12px 10px 20px;
+  padding: 10px 10px 20px;
   border-radius: 8px;
-  background-color: #F8F8F8;
-  color: #1E1E1E;
-  margin: 0 0 10px;
+  background-color: variables.$message-get-color;
+  color: variables.$title-color;
+  margin: 10px 0 0;
   position: relative;
   max-width: 40%;
+  min-width: 60px;
+  word-break: break-all;
+  text-align: left;
+  border-bottom-left-radius: 0;
 
   &_right {
     align-self: flex-end;
-    background-color: #E4EDFD;
+    text-align: right;
+    background-color: variables.$message-send-color;
     border-bottom-right-radius: 0;
+    border-bottom-left-radius: 8px;
   }
 
   &__text {
@@ -18,7 +28,7 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 16px;
-    color: #1E1E1E;
+    color: variables.$title-color;
   }
 
   &__time {
@@ -26,13 +36,13 @@
     font-size: 9px;
     font-weight: 500;
     line-height: 9px;    
-    color: #999;
+    color: variables.$text-color;
     position: absolute;
     bottom: 7px;
     right: 10px;
 
     &_right{
-      color: #3369F3;
+      color: variables.$blue-color;
 
       &::before{
         content: url("/static/icons/check.svg");
@@ -54,6 +64,12 @@
         position: absolute;
         top: -2px;
         left: -14px;
+      }
+    }
+
+    &_left{
+      &::before{
+        content: none;
       }
     }
   }

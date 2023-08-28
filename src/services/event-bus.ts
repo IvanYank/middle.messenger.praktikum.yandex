@@ -1,36 +1,34 @@
 class EventBus {
-  listeners;
+  listeners: Record<string, []>;
 
   constructor() {
     this.listeners = {};
   }
 
-  on(event: string, callback) {
+  on(event: string, callback: object) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
 
-    this.listeners[event].push(callback);
+    (this.listeners[event] as object[]).push(callback);
   }
 
-  off(event: string, callback) {
+  off(event: string, callback: object) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event] = this.listeners[event].filter(
-      (listener) => listener !== callback
+    (this.listeners[event] as object[]) = this.listeners[event].filter(
+      (listener: object) => listener !== callback
     );
   }
 
-  emit(event: string, ...args) {
-    if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`);
+  emit(event: string, ...args: undefined[]) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(function(listener: (...args: undefined[])=> void) {
+        listener(...args);
+      });
     }
-
-    this.listeners[event].forEach(function(listener) {
-      listener(...args);
-    });
   }
 }
 

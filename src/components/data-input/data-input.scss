@@ -1,7 +1,11 @@
+/* stylelint-disable */
+@use '../../styles/variables.scss' as variables;
+/* stylelint-enable */
+
 .data-input {
   padding: 0 0 15px;
   margin: 0 0 15px;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid variables.$border-color;
 
   &__info{
     display: flex;
@@ -13,7 +17,7 @@
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
-    color: #1E1E1E;
+    color: variables.$title-color;
   }
 
   &__value {
@@ -21,11 +25,11 @@
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
-    color: #999;
+    color: variables.$text-color;
     text-align: right;
 
     &::placeholder{
-      color: #999;
+      color: variables.$text-color;
     }
   }
 
@@ -35,7 +39,7 @@
     font-weight: 500;
     line-height: 13px;
     text-align: right;
-    color: #f00;
+    color: variables.$error-color;
     margin: 8px 0 0;
     display: none;
 
@@ -45,7 +49,7 @@
   }
 
   &_error{
-    border-bottom: 1px solid #f00;
+    border-bottom: 1px solid variables.$error-color;
   }
 
   &:last-child{
