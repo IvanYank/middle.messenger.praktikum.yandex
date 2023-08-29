@@ -55,9 +55,12 @@ export default class ChatsPage extends Block {
   }
 
   post(): void {
+    const addChatForm = this.getContent().querySelector('.chats__creater') as HTMLFormElement;
     const addTitleInput = this.getContent().querySelector('.chats__title-input') as HTMLInputElement;
-    const addChatButton = this.getContent().querySelector('.chats__add-chat') as HTMLButtonElement;
 
-    addChatButton.addEventListener('click', () => { ChatsController.createChat(addTitleInput) })
+    addChatForm.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ChatsController.createChat(addTitleInput)
+    })
   }
 }

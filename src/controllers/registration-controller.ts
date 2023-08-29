@@ -30,12 +30,16 @@ class RegistrationController {
         .then(() => {
           UserAPI.getUser().then((response1) => {
             Router.use('/settings', createPage(ProfilePage, profile));
-            store.set('user', JSON.parse(response1.response), StoreEvents.UpdatedProfile)
+            store.set('user', response1, StoreEvents.UpdatedProfile)
             ChatsAPI.getChats().then((response) => {
               Router.use('/messenger', createPage(ChatsPage, chats));
-              store.set('chats', JSON.parse(response.response), StoreEvents.UpdatedChats);
+              store.set('chats', response, StoreEvents.UpdatedChats);
               Router.go('/messenger');
+            }).catch((err) => {
+              console.error(err)
             })
+          }).catch((err) => {
+            console.error(err)
           })
         })
         .catch((err) => {

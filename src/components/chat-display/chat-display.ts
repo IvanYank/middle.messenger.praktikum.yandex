@@ -15,7 +15,7 @@ export default class ChatDisplay extends Block {
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
     if (!isEqual(oldProps, newProps)) {
-      if (oldProps.props.attributes) {
+      if (oldProps.props.attributes && oldProps.props.chatId != newProps.props.chatId) {
         oldProps.props.socket.close();
       }
       return true
@@ -30,12 +30,12 @@ export default class ChatDisplay extends Block {
 
     const formsWrapper = this.getContent().querySelector('.display__forms-wrapper') as HTMLElement;
 
-    const changeAvatarButton = this.getContent().querySelector('.display__change-avatar') as HTMLButtonElement;
+    // const changeAvatarButton = this.getContent().querySelector('.display__change-avatar') as HTMLButtonElement;
     const addUserButton = this.getContent().querySelector('.display__add-user') as HTMLButtonElement;
     const deleteUserButton = this.getContent().querySelector('.display__delete-user') as HTMLButtonElement;
     const deleteChatButton = this.getContent().querySelector('.display__delete-chat') as HTMLButtonElement;
 
-    const changeAvatarWrapper = this.getContent().querySelector('.display__change-avatar-wrapper') as HTMLElement;
+    // const changeAvatarWrapper = this.getContent().querySelector('.display__change-avatar-wrapper') as HTMLElement;
     const addUserWrapper = this.getContent().querySelector('.display__add-user-list-wrapper') as HTMLElement;
     const deleteUserWrapper = this.getContent().querySelector('.display__delete-user-list-wrapper') as HTMLElement;
     const deleteChatWrapper = this.getContent().querySelector('.display__delete-chat-wrapper') as HTMLElement;
@@ -45,13 +45,14 @@ export default class ChatDisplay extends Block {
     const deleteUserInput = deleteUserWrapper.querySelector('input') as HTMLInputElement;
 
     // const changeAvatarSubmit = changeAvatarWrapper.querySelector('button') as HTMLButtonElement;
-    const addUserSubmit = addUserWrapper.querySelector('button') as HTMLButtonElement;
-    const deleteUserSubmit = deleteUserWrapper.querySelector('button') as HTMLButtonElement;
+    // const addUserSubmit = addUserWrapper.querySelector('button') as HTMLButtonElement;
+    // const deleteUserSubmit = deleteUserWrapper.querySelector('button') as HTMLButtonElement;
     const deleteChatAgree = deleteChatWrapper.querySelector('.change-data-form__answer_yes') as HTMLButtonElement;
     const deleteChatDisagree = deleteChatWrapper.querySelector('.change-data-form__answer_no') as HTMLButtonElement;
 
+    const messageForm = this.getContent().querySelector('.display__send-panel') as HTMLFormElement;
     const messageInput = this.getContent().querySelector('.display__send-message') as HTMLInputElement;
-    const sendButton = this.getContent().querySelector('.display__send-button') as HTMLButtonElement;
+    // const sendButton = this.getContent().querySelector('.display__send-button') as HTMLButtonElement;
 
     let activeWrapper: HTMLElement | null = null;
 
@@ -62,30 +63,20 @@ export default class ChatDisplay extends Block {
       settingsList.classList.toggle('display__settings-list_open');
     }
 
-    // const sendData = (input: HTMLInputElement) => {
-
-    // }
-
-    changeAvatarButton.addEventListener('click', () => { openWrapper(changeAvatarWrapper) })
+    // changeAvatarButton.addEventListener('click', () => { openWrapper(changeAvatarWrapper) })
     deleteUserButton.addEventListener('click', () => { openWrapper(deleteUserWrapper) })
     deleteChatButton.addEventListener('click', () => { openWrapper(deleteChatWrapper) })
     addUserButton.addEventListener('click', () => { openWrapper(addUserWrapper) })
 
-    // changeAvatarSubmit.addEventListener('click', () => {
-    //   ChatsController.changeAvatar(new FormData(input))
-    // })
+    // changeAvatarSubmit.addEventListener('click', () => { ChatsController.changeAvatar(new FormData(input)) })
 
-    addUserSubmit.addEventListener('click', () => {
-      ChatsController.addUser(addUserInput.value, this.props.chatId).then(() => {
-        formsWrapper.classList.remove('display__forms-wrapper_show');
-        activeWrapper?.classList.remove('change-data-form_show');
-      })
+    addUserWrapper.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ChatsController.addUser(addUserInput.value, this.props.chatId, formsWrapper, activeWrapper)
     })
-    deleteUserSubmit.addEventListener('click', () => {
-      ChatsController.deleteUser(deleteUserInput.value, this.props.chatId).then(() => {
-        formsWrapper.classList.remove('display__forms-wrapper_show');
-        activeWrapper?.classList.remove('change-data-form_show');
-      })
+    deleteUserWrapper.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ChatsController.deleteUser(deleteUserInput.value, this.props.chatId, formsWrapper, activeWrapper)
     })
 
     deleteChatAgree.addEventListener('click', () => { ChatsController.deleteChat(this) })
@@ -101,12 +92,11 @@ export default class ChatDisplay extends Block {
       }
     })
 
-    sendButton.addEventListener('click', () => {
-      ChatsController.sendMessage(messageInput, this)
+    messageForm.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ChatsController.sendMessage(messageInput, this);
     })
 
-    settingsButton.addEventListener('click', () => {
-      settingsList.classList.toggle('display__settings-list_open');
-    })
+    settingsButton.addEventListener('click', () => { settingsList.classList.toggle('display__settings-list_open') })
   }
 }

@@ -6,7 +6,7 @@ const template =
     {{{customLink}}}
     <form action="#" method="#" class="chats__creater">
       <input type="text" name="title" class="chats__title-input">
-      <button type="button" class="chats__add-chat">Создать</button>
+      <button type="submit" class="chats__add-chat">Создать</button>
     </form>
     <form method="#" action="#" class="search chats__search-line">
       <input id="search" type="text" class="search__input" name="message">

@@ -4,7 +4,7 @@ import CustomLink from '../components/custom-link/custom-link';
 import { dataVal, dataRepeatVal } from '../utils/validation';
 import { email, login, nameText, phone, password } from '../utils/regular-expressions';
 import Router from '../services/router';
-import UserAPI from '../api/user-api';
+import ProfileController from '../controllers/profile-controller';
 
 const emailData = new Data({
   label: 'Почта'
@@ -219,11 +219,7 @@ const profileInitData = {
     events: {
       click: {
         element: '',
-        event: () => {
-          UserAPI.logOut().then(() => {
-            Router.go('/');
-          });
-        }
+        event: () => { ProfileController.logOut() }
       }
     }
   }),

@@ -9,8 +9,12 @@ class ChatsController {
   static createChat(input: HTMLInputElement) {
     ChatsAPI.createChat({ 'title': input.value }).then(() => {
       ChatsAPI.getChats().then((response) => {
-        store.set('chats', JSON.parse(response.response), StoreEvents.UpdatedChats);
+        store.set('chats', response, StoreEvents.UpdatedChats);
+      }).catch((err) => {
+        console.error(err)
       })
+    }).catch((err) => {
+      console.error(err)
     })
   }
 
@@ -21,11 +25,15 @@ class ChatsController {
     ChatsAPI.deleteChat({ 'chatId': chatId }).then(() => {
       ChatsAPI.getChats().then((response) => {
         socket.close();
-        store.set('chats', JSON.parse(response.response), StoreEvents.UpdatedChats);
+        store.set('chats', response, StoreEvents.UpdatedChats);
         chatDisplay.setProps({
           attributes: { class: '' }
         })
+      }).catch((err) => {
+        console.error(err)
       })
+    }).catch((err) => {
+      console.error(err)
     })
   }
 
@@ -34,7 +42,7 @@ class ChatsController {
     const chatId = chat.id;
 
     ChatsAPI.getToken(chatId).then(response => {
-      const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${JSON.parse(response.response).token}`);
+      const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${(response as Indexed).token}`);
       let pingInterval: NodeJS.Timer;
 
       socket.addEventListener('open', () => {
@@ -56,8 +64,10 @@ class ChatsController {
       });
 
       socket.addEventListener('message', event => {
-        if (JSON.parse(event.data).type != 'pong' && JSON.parse(event.data).type != 'user connected' && Array.isArray(JSON.parse(event.data))) {
-          const messagesInfo: messageType[] = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
+
+        if (data.type != 'pong' && data.type != 'user connected' && Array.isArray(data)) {
+          const messagesInfo: messageType[] = data;
           const messagesBlocks: MessageBlock[] = [];
 
           for (const message of messagesInfo) {
@@ -82,7 +92,7 @@ class ChatsController {
             attributes: { class: 'display_show' }
           }, { messages: messagesBlocks })
 
-        } else if (JSON.parse(event.data).type != 'pong' && JSON.parse(event.data).type != 'user connected' && !Array.isArray(JSON.parse(event.data))) {
+        } else if (data.type != 'pong' && data.type != 'user connected' && !Array.isArray(data)) {
           socket.send(JSON.stringify({
             content: '0',
             type: 'get old',
@@ -93,25 +103,37 @@ class ChatsController {
       socket.addEventListener('error', event => {
         console.log('Ошибка', event);
       });
+    }).catch((err) => {
+      console.error(err)
     })
   }
 
-  static addUser(user: string, chatId: number) {
+  static addUser(user: string, chatId: number, formsWrapper: HTMLElement, activeWrapper: HTMLElement | null) {
     const data = {
       users: [user],
       chatId: chatId
     }
 
-    return ChatsAPI.addUsersToChat(data)
+    ChatsAPI.addUsersToChat(data).then(() => {
+      formsWrapper.classList.remove('display__forms-wrapper_show');
+      activeWrapper?.classList.remove('change-data-form_show');
+    }).catch((err) => {
+      console.error(err)
+    })
   }
 
-  static deleteUser(user: string, chatId: number) {
+  static deleteUser(user: string, chatId: number, formsWrapper: HTMLElement, activeWrapper: HTMLElement | null) {
     const data = {
       users: [user],
       chatId: chatId
     }
 
-    return ChatsAPI.deleteUsersFromChat(data)
+    ChatsAPI.deleteUsersFromChat(data).then(() => {
+      formsWrapper.classList.remove('display__forms-wrapper_show');
+      activeWrapper?.classList.remove('change-data-form_show');
+    }).catch((err) => {
+      console.error(err)
+    })
   }
 
   // static changeAvatar(data: FormData) {
