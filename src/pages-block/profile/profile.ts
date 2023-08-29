@@ -77,7 +77,7 @@ export default class ProfilePage extends Block {
 
     changeAvatarSubmit.addEventListener('click', () => { ProfileController.changeProfileAvatar(changeAvatarWrap) })
 
-    changePasswordForm.addEventListener('submit', (e: Event) => {
+    changeDataForm.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       ProfileController.changeProfileData(this)
     })
