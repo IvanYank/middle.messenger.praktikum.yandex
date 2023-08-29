@@ -22,10 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     .use('/messenger', createPage(ChatsPage, chatInitData))
     .use('/settings', createPage(ProfilePage, profileInitData))
     .use('/404', createPage(Page404, page404InitData))
-    .use('/500', createPage(Page500, page500InitData))
-    .start();
+    .use('/500', createPage(Page500, page500InitData));
 
-    if(getCookie('auth')){
-      LoginController.getData()
-    }
+  if (getCookie('auth')) {
+    LoginController.getData();
+  } else {
+    router.start();
+  }
 });

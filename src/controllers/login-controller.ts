@@ -5,6 +5,7 @@ import Router from "../services/router";
 import store, { StoreEvents } from "../services/store";
 import setCookie from "../utils/setCookie";
 import getCookie from "../utils/getCookie";
+import router from "../services/router";
 
 class LoginController {
   static signIn(inputs: Input[]) {
@@ -71,6 +72,7 @@ class LoginController {
       store.set('user', response, StoreEvents.UpdatedProfile)
       ChatsAPI.getChats().then((response) => {
         store.set('chats', response, StoreEvents.UpdatedChats);
+        router.start();
       }).catch((err) => {
         console.error(err);
       })
