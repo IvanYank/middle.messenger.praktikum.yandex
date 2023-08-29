@@ -1,7 +1,9 @@
 import UserAPI from "../api/user-api";
 import Input from "../components/input/input";
 import ProfilePage from "../pages-block/profile/profile";
+import Router from "../services/router";
 import store, { StoreEvents } from "../services/store";
+import deleteCookie from "../utils/deleteCookie";
 
 class ProfileController {
   static changeProfileAvatar(block: HTMLElement) {
@@ -9,7 +11,9 @@ class ProfileController {
     const formData = new FormData(form);
 
     UserAPI.changeAvatar(formData).then((response) => {
-      store.set('user', JSON.parse(response.response), StoreEvents.UpdatedProfile)
+      store.set('user', response, StoreEvents.UpdatedProfile)
+    }).catch((err) => {
+      console.error(err)
     })
 
     block.style.display = 'none';
@@ -41,10 +45,11 @@ class ProfileController {
 
     if (!passes.includes(false)) {
       UserAPI.changeData(info).then((response) => {
-        store.set('user', JSON.parse(response.response), StoreEvents.UpdatedProfile);
+        store.set('user', response, StoreEvents.UpdatedProfile);
         changeDataForm.style.display = 'none';
         profileStatic.style.display = 'flex';
-        // wrapperName = null;
+      }).catch((err) => {
+        console.error(err)
       });
     }
   }
@@ -77,9 +82,17 @@ class ProfileController {
       UserAPI.changePass(info).then(() => {
         changePasswordForm.style.display = 'none';
         profileStatic.style.display = 'flex';
-        // wrapperName = null;
+      }).catch((err) => {
+        console.error(err)
       })
     }
+  }
+
+  static logOut(){
+    UserAPI.logOut().then(() => {
+      deleteCookie('auth');
+      Router.go('/');
+    });
   }
 }
 

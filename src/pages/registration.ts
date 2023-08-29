@@ -103,15 +103,7 @@ const registrationButton = new Button({
   attributes: {
     class: 'form__button_1',
     link: '/messenger',
-    type: 'button',
-  },
-  events: {
-    click: {
-      element: '',
-      event: () => {
-        RegistrationController.signUp(inputs)
-      },
-    }
+    type: 'submit',
   }
 })
 
@@ -125,9 +117,7 @@ const enterButton = new Button({
   events: {
     click: {
       element: '',
-      event: () => {
-        Router.go('/')
-      },
+      event: () => { Router.go('/') }
     }
   }
 })
@@ -144,9 +134,18 @@ const registrationInitData = {
   registration: registrationButton,
   enter: enterButton,
   attributes: {
-    action: '',
+    action: '#',
     method: '#',
   },
+  events: {
+    submit: {
+      element: '',
+      event: (e: Event) => {
+        e.preventDefault();
+        RegistrationController.signUp(inputs);
+      },
+    }
+  }
 };
 
 export default registrationInitData

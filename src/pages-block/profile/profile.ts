@@ -62,8 +62,6 @@ export default class ProfilePage extends Block {
     const changePasswordForm = this.getContent().querySelector('.profile__change-password') as HTMLElement;
 
     const changeAvatarSubmit = this.getContent().querySelector('.change-avatar__submit') as HTMLElement;
-    const changeDataSubmit = this.getContent().querySelector('.profile__change-data-submit') as HTMLElement;
-    const changePasswordSubmit = this.getContent().querySelector('.profile__change-password-submit') as HTMLElement;
 
     const showForm = (form: HTMLElement) => {
       form.style.display = 'flex';
@@ -78,8 +76,16 @@ export default class ProfilePage extends Block {
     })
 
     changeAvatarSubmit.addEventListener('click', () => { ProfileController.changeProfileAvatar(changeAvatarWrap) })
-    changePasswordSubmit.addEventListener('click', () => { ProfileController.changeProfilePass(this) })
-    changeDataSubmit.addEventListener('click', () => { ProfileController.changeProfileData(this) })
+
+    changePasswordForm.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ProfileController.changeProfileData(this)
+    })
+
+    changePasswordForm.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      ProfileController.changeProfilePass(this)
+    })
 
     changeAvatar.addEventListener('click', () => { changeAvatarWrap.style.display = 'block' })
     changeData.addEventListener('click', () => { showForm(changeDataForm) })

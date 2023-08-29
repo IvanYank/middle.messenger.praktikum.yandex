@@ -38,15 +38,7 @@ const buttonAuth = new Button({
   attributes: {
     class: 'form__button_1',
     link: '/messenger',
-    type: 'button',
-  },
-  events: {
-    click: {
-      element: '',
-      event: () => {
-        LoginController.signIn(inputs)
-      },
-    }
+    type: 'submit',
   }
 })
 
@@ -73,6 +65,19 @@ const loginInitData = {
   password: inputPass,
   enter: buttonAuth,
   registration: buttonEnter,
+  attributes: {
+    action: '#',
+    method: '#',
+  },
+  events: {
+    submit: {
+      element: '',
+      event: (e: Event) => {
+        e.preventDefault();
+        LoginController.signIn(inputs)
+      },
+    }
+  }
 };
 
 export default loginInitData

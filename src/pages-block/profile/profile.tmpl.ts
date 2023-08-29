@@ -33,7 +33,7 @@ const template =
         {{{display_name-input}}}
         {{{phone-input}}}
       </div>
-      <button type="button" class="profile__change-data-submit">Сохранить</button>
+      <button type="submit" class="profile__change-data-submit">Сохранить</button>
     </form>
     <form action="#" class="profile__change-password">
       <div class="profile__change-password-list">
@@ -41,7 +41,7 @@ const template =
         {{{newPassword-input}}}
         {{{repeatPassword-input}}}
       </div>
-      <button type="button" class="profile__change-password-submit">Сохранить</button>
+      <button type="submit" class="profile__change-password-submit">Сохранить</button>
     </form>
   </div>
   <div class="profile__change-avatar-wrapper">
