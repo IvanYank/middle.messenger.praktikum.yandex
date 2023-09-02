@@ -10,7 +10,7 @@ const template =
 </div>
 <div class="dialog__info">
   <div class="dialog__date">{{date}}</div>
-  <div class="dialog__count dialog__{{count}}">{{count}}</div>
+  <div class="dialog__count {{#if count}}dialog__count_show{{/if}}">{{count}}</div>
 </div>`;
 
 export default template

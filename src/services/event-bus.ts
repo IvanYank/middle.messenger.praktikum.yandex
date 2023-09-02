@@ -24,13 +24,11 @@ class EventBus {
   }
 
   emit(event: string, ...args: undefined[]) {
-    if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`);
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(function(listener: (...args: undefined[])=> void) {
+        listener(...args);
+      });
     }
-
-    this.listeners[event].forEach(function(listener: (...args: undefined[])=> void) {
-      listener(...args);
-    });
   }
 }
 
