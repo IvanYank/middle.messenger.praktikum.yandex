@@ -1,3 +1,4 @@
+/* eslint-disable */
 const JSDOM = require('jsdom').JSDOM;
 
 const jsdom = new JSDOM('<body></body>', {
@@ -8,3 +9,4 @@ global.window = jsdom.window;
 global.document = jsdom.window.document;
 global.FormData = jsdom.window.FormData;
 global.DocumentFragment = jsdom.window.DocumentFragment;
+/* eslint-enable */
