@@ -1,7 +1,6 @@
 {
   "name": "yandex-project",
   "private": true,
-  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -11,20 +10,31 @@
     "start": "vite build && node server.js",
     "stylelint": "stylelint \"**/*.scss\"",
     "eslint": "eslint \"**/*.ts\"",
-    "prepare": "husky install"
+    "test": "mocha"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@types/chai": "^4.3.5",
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
+    "@types/sinon": "^10.0.16",
+    "@types/sinon-chai": "^3.2.9",
     "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "chai": "^4.3.8",
     "eslint": "^8.45.0",
     "eslint-config-airbnb": "^19.0.4",
     "husky": "^8.0.0",
+    "jsdom": "^22.1.0",
+    "mocha": "^10.2.0",
     "npm-run-all": "^4.1.5",
     "sass": "^1.63.6",
+    "sinon": "^15.2.0",
+    "sinon-chai": "^3.7.0",
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vite-plugin-handlebars": "^1.6.0"
