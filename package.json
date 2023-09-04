@@ -10,7 +10,8 @@
     "start": "vite build && node server.js",
     "stylelint": "stylelint \"**/*.scss\"",
     "eslint": "eslint \"**/*.ts\"",
-    "test": "mocha"
+    "test": "mocha",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
