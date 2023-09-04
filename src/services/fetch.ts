@@ -19,23 +19,23 @@ type OptionsWithoutMethod = Omit<Options, 'method'>;
 const baseAPIUrl = 'https://ya-praktikum.tech/api/v2/';
 
 class HTTPTransport {
-  static get(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
+  get(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   }
 
-  static post(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
+  post(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   }
 
-  static put(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
+  put(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   }
 
-  static delete(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
+  delete(url: string, options: OptionsWithoutMethod = {}): Promise<object> {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   }
 
-  private static request(url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<object> {
+  request(url: string, options: Options = { method: METHODS.GET }, timeout = 5000): Promise<object> {
     const { method, data, headers } = options;
 
     return new Promise((resolve, reject) => {

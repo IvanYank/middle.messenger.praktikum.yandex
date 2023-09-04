@@ -1,8 +1,10 @@
 import HTTPTransport from "../services/fetch"
 
+const fetch = new HTTPTransport();
+
 export default class ChatsAPI {
   static createChat(data: object){
-    return HTTPTransport.post('chats', {
+    return fetch.post('chats', {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -11,7 +13,7 @@ export default class ChatsAPI {
   }
 
   static deleteChat(data: object){
-    return HTTPTransport.delete(`chats`, {
+    return fetch.delete(`chats`, {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ export default class ChatsAPI {
   }
 
   static getChats(url: string = ''){
-    return HTTPTransport.get(`chats${url}`, {
+    return fetch.get(`chats${url}`, {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -28,7 +30,7 @@ export default class ChatsAPI {
   }
 
   static addUsersToChat(data: object){
-    return HTTPTransport.put(`chats/users`, {
+    return fetch.put(`chats/users`, {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +39,7 @@ export default class ChatsAPI {
   }
 
   static deleteUsersFromChat(data: object){
-    return HTTPTransport.delete(`chats/users`, {
+    return fetch.delete(`chats/users`, {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +49,7 @@ export default class ChatsAPI {
 
 
   static getToken(id: number){
-    return HTTPTransport.post(`chats/token/${id}`, {
+    return fetch.post(`chats/token/${id}`, {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -55,7 +57,7 @@ export default class ChatsAPI {
   }
 
   static changeChatAvatar(data: FormData){
-    return HTTPTransport.put(`chats/avatar`, {
+    return fetch.put(`chats/avatar`, {
       data: data,
     })
   }

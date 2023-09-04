@@ -1,8 +1,10 @@
 import HTTPTransport from "../services/fetch";
 
+const fetch = new HTTPTransport();
+
 export default class UserAPI {
   static signUp(data: object) {
-    return HTTPTransport.post('auth/signup', {
+    return fetch.post('auth/signup', {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -11,7 +13,7 @@ export default class UserAPI {
   }
 
   static signIn(data: object) {
-    return HTTPTransport.post('auth/signin', {
+    return fetch.post('auth/signin', {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ export default class UserAPI {
   }
 
   static getUser() {
-    return HTTPTransport.get('auth/user', {
+    return fetch.get('auth/user', {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -28,7 +30,7 @@ export default class UserAPI {
   }
 
   static changeData(data: object){
-    return HTTPTransport.put('user/profile', {
+    return fetch.put('user/profile', {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +39,7 @@ export default class UserAPI {
   }
 
   static changePass(data: object){
-    return HTTPTransport.put('user/password', {
+    return fetch.put('user/password', {
       data: data,
       headers: {
         'Content-Type': 'application/json',
@@ -46,13 +48,13 @@ export default class UserAPI {
   }
 
   static changeAvatar(data: FormData){
-    return HTTPTransport.put('user/profile/avatar', {
+    return fetch.put('user/profile/avatar', {
       data: data,
     })
   }
 
   static logOut(){
-    return HTTPTransport.post('auth/logout', {
+    return fetch.post('auth/logout', {
       headers: {
         'Content-Type': 'application/json',
       }

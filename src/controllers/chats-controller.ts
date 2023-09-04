@@ -43,7 +43,7 @@ class ChatsController {
 
     ChatsAPI.getToken(chatId).then(response => {
       const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${(response as Indexed).token}`);
-      let pingInterval: NodeJS.Timer;
+      let pingInterval: NodeJS.Timeout;
 
       socket.addEventListener('open', () => {
         socket.send(JSON.stringify({
